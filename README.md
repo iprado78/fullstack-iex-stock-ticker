@@ -9,7 +9,14 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 - This will likely only be relevant if we eventually start doing more sophisticated things or sharing shortcuts
 
-### Steps to Bootstrap
+### Run App Shell
+
+1. `git clone https://github.com/iprado78/fullstack-iex-stock-ticker.git`
+2. `cd fullstack-iex-stockpicker`
+3. `npm install`
+4. `npm run dev`
+
+### Steps to Bootstrap (Already done)
 
 1. Create Github repo named `fullstack-iex-stockpicker`
 2. `npx create-next-app fullstack-iex-stockpicker`
@@ -21,7 +28,6 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 8. Next.js will give you a helpful error telling you what TypeScript related packages to install
 9. `npm install --save-dev typescript @types/react`
 10. Componentized Next.js boiler plate for our project
-11. `npm run dev` - view app shell
 
 ## Getting Started
 
