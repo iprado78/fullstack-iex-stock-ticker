@@ -1,3 +1,3 @@
 import TickerTypeahead from "./TickerTypeahead"
 
-export default TickerTypeahead 
+export default TickerTypeahead

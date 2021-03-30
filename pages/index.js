@@ -1,8 +1,8 @@
-import Head from 'next/head'
-import styles from '../styles/Home.module.css'
-import Header  from "../components/Header"
+import Head from "next/head"
+import styles from "../styles/Home.module.css"
+import Header from "../components/Header"
 import AppContainer from "../components/AppContainer"
-import Main  from "../components/Main"
+import Main from "../components/Main"
 import SummaryStats from "../components/SummaryStats"
 import Footer from "../components/Footer"
 import TickerTypeahead from "../components/TickerTypeahead"
@@ -17,14 +17,14 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Header title={appTitle} />
-      <Main >
-          <div className={styles.description}>
-            <TickerTypeahead />
-          </div>
+      <Main>
+        <div className={styles.description}>
+          <TickerTypeahead />
+        </div>
 
-          <SummaryStats />
+        <SummaryStats />
       </Main>
-      <Footer/>
+      <Footer />
     </AppContainer>
   )
 }
