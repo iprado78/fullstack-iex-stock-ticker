@@ -22,14 +22,8 @@ export default function Home() {
             Get started by editing{' '}
             <code className={styles.code}>pages/index.js</code>
           </p>
-          <div className={styles.mainLayout}>
-            <div className={styles.mainLayoutLeft}>
-              <SummaryStats />
-            </div>
-            <div className={styles.mainLayoutRight}>
-              <CompanyInfo />
-            </div>
-          </div>
+
+          <SummaryStats />
       </Main>
       <Footer/>
     </AppContainer>
