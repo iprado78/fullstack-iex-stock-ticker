@@ -1,5 +1,28 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
+## App Bootstrap
+
+### Pre-requisites
+
+1. Have Node 14 installed and active on your machine (I recommend using [nvm](https://github.com/nvm-sh/nvm))
+2. Set Bash as your terminal \*
+
+- This will likely only be relevant if we eventually start doing more sophisticated things or sharing shortcuts
+
+### Steps to Bootstrap
+
+1. Create Github repo named `fullstack-iex-stockpicker`
+2. `npx create-next-app fullstack-iex-stockpicker`
+3. `cd fullstack-iex-stockpicker`
+4. `git add remote origin https://github.com/iprado78/fullstack-iex-stock-ticker.git`
+5. `git push --set-upstream origin main`
+6. `touch tsconfig.json`
+7. `npm run dev`
+8. Next.js will give you a helpful error telling you what TypeScript related packages to install
+9. `npm install --save-dev typescript @types/react`
+10. Componentized Next.js boiler plate for our project
+11. `npm run dev` - view app shell
+
 ## Getting Started
 
 First, run the development server:
