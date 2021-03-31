@@ -1,35 +1,48 @@
 import React from 'react'
-import styles from '../styles/Home.module.css'
+import keyStats from '../data/keyStats.json' // todo: replace dummy data with api data
+import styles from '../styles/Summary.module.scss'
 
-export default function SummaryStats () {
+export default function SummaryStats() {
+  const toUSD = (num: number):string => {
+    return new Intl.NumberFormat('en-US', {style: 'currency', currency: 'USD'}).format(num)
+  }
+
+  const toUsNum = (num: number):string => {
+    return num.toLocaleString('en-US')
+  }
+
+  if(!keyStats) {
+    return (<h1>Search a stock ticker</h1>)
+  }
+
   return (
-    <div className={styles.summaryStats}>
-      <a href="https://nextjs.org/docs" className={styles.card}>
-        <h3>Documentation &rarr;</h3>
-        <p>Find in-depth information about Next.js features and API.</p>
-      </a>
-      <a href="https://nextjs.org/learn" className={styles.card}>
-        <h3>Learn &rarr;</h3>
-        <p>Learn about Next.js in an interactive course with quizzes!</p>
-      </a>
-
-      <a
-        href="https://github.com/vercel/next.js/tree/master/examples"
-        className={styles.card}
-      >
-        <h3>Examples &rarr;</h3>
-        <p>Discover and deploy boilerplate example Next.js projects.</p>
-      </a>
-
-      <a
-        href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-        className={styles.card}
-      >
-        <h3>Deploy &rarr;</h3>
-        <p>
-          Instantly deploy your Next.js site to a public URL with Vercel.
-        </p>
-      </a>
+    <div>
+      <h2>{keyStats.companyName}</h2>
+     <table className={styles.summary}>
+       <caption>Summary</caption>
+       <tbody>
+        <tr>
+          <th>Highest Price (52 weeks)</th>
+          <td>{toUSD(keyStats.week52high)}</td>
+        </tr>
+        <tr>
+          <th>Lowest Price (52 weeks)</th>
+          <td>{toUSD(keyStats.week52low)}</td>
+        </tr>
+        <tr>
+          <th>Average Volume (30 days)</th>
+          <td>{toUsNum(keyStats.avg30Volume)}</td>
+        </tr>
+        <tr>
+          <th>Change Percentage (30 days)</th>
+          <td>{`${(keyStats.day30ChangePercent * 100).toFixed(2)}%`}</td>
+        </tr>
+        <tr>
+          <th>Employees</th>
+          <td>{toUsNum(keyStats.employees)}</td>
+        </tr>
+       </tbody>
+     </table>
     </div>
   )
 }

@@ -1,0 +1,25 @@
+.summary {
+  border-collapse: collapse;
+  width: 100%;
+  caption {
+    font-weight: bold;
+    text-transform: uppercase;
+    line-height: 2;
+    font-size: 1.3rem;
+  }
+
+  tr {
+    border-bottom: solid 2px #e6e2e2;
+  }
+
+  th,
+  td {
+    padding: 10px 0;
+    text-align: left;
+    line-height: 2.4;
+  }
+
+  td {
+    text-align: right;
+  }
+}
