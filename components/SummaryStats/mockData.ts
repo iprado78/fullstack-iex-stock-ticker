@@ -1,4 +1,13 @@
-{
+interface SummaryStats {
+  companyName: string;
+  week52high: number;
+  week52low: number;
+  avg30Volume: number;
+  day30ChangePercent: number;
+  employees: number;
+}
+
+export const summaryStats: SummaryStats = {
   "companyName": "Bank Of America Corp.",
   "marketcap": 330510045267,
   "week52high": 39.97,
