@@ -4,7 +4,7 @@ import Header  from "../components/Header"
 import AppContainer from "../components/AppContainer"
 import Main  from "../components/Main"
 import  CompanyInfo  from "../components/CompanyInfo"
-import SummaryStats from "../components/SummaryStats/SummaryStats"
+import SummaryStats from "../components/SummaryStats/"
 import Footer from "../components/Footer"
 
 const appTitle = "IEX Ticker Dashboard"
