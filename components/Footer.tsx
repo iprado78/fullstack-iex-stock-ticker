@@ -1,5 +1,5 @@
-import React from 'react'
-import styles from '../styles/Home.module.css'
+import React from "react"
+import styles from "../styles/Home.module.css"
 
 export default function Footer() {
   return (
@@ -9,10 +9,8 @@ export default function Footer() {
         target="_blank"
         rel="noopener noreferrer"
       >
-        Powered by{' '}
-        <img src="/vercel.svg" alt="Vercel Logo" className={styles.logo} />
+        Powered by <img src="/vercel.svg" alt="Vercel Logo" className={styles.logo} />
       </a>
     </footer>
   )
 }
-
