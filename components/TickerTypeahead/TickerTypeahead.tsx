@@ -1,7 +1,7 @@
 import React from "react"
 import { catchError, debounceTime, map, switchMap } from "rxjs/operators"
 import { of } from "rxjs"
-import styles from "./TickerTypeahead.module.css"
+import styles from "./TickerTypeahead.module.scss"
 // import { mockResults } from "./mockResults"
 import { createSignal } from "@react-rxjs/utils"
 import { bind } from "@react-rxjs/core"
@@ -14,9 +14,29 @@ interface TickerOption {
   label: string;
 }
 
+  // dummy data - delete when backend apis are set up
+  let options = [
+    {
+      value: 'nyse:a',
+      label: 'NYSE:A',
+    },
+    {
+      value: 'nyse:f',
+      label: 'NYSE:F',
+    },
+    {
+      value: 'nyse:v',
+      label: 'NYSE:V',
+    },
+    {
+      value: 'nyse:b',
+      label: 'NYSE:B',
+    }
+  ]
+
 const [useOptions, options$] = bind(
   searchInputs$.pipe(
-    debounceTime(100),
+    debounceTime(300),
     switchMap(
       // For mock results ->
       // of(input.length ? mockResults.filter((result) => result.symbol.toLowerCase().startsWith(input)) : [] 
@@ -32,7 +52,7 @@ const [useOptions, options$] = bind(
     [] as TickerOption[]
 )
 
-const [tickerSelections$, onCompanySelection] = createSignal<string>()
+const [tickerSelections$, onTickerSelection] = createSignal<string>()
 
 /**
  * We export out tickerSelections to the rest of the app
@@ -42,43 +62,43 @@ const [tickerSelections$, onCompanySelection] = createSignal<string>()
  */
 export { tickerSelections$ } 
 
-/**
- * This would be defined 
- */
-const [useSummaryStats, summaryStats$] = bind(
-  tickerSelections$.pipe(
-    switchMap(
-      (ticker) => ajax.getJSON(`http://localhost:3000/summary-stats/${ticker}`)
-      // Todo -> add catchError
-    )
-  ),
-  {} // as SummaryStats -> our interface type
-)
 
 export default function TickerTypeahead() {
-  const options = useOptions()
+  // uncomment when background is hooked up
+  // const options = useOptions()
+  
+  const optionsList = () => {
+    return (
+      <ul className={styles.dropdown}>
+        {options.map((option) => (
+          <li key={option.value}>
+            <button className={styles.dropdown__option} onClick={() => onTickerSelection(option.value)}>
+              { option.label }
+            </button>
+          </li>
+        ))}
+      </ul>
+    )
+  }
+
   return (
-    <>
+    <form className={styles.search}>
       <div>
         <label className={styles.visuallyHide} htmlFor="ticker-select">
           Ticker Select
         </label>
         <input
+          className={styles.search}
           id="ticker-select"
           type="search"
-          placeholder="Search for stock ticker"
-          onChange={(e) => {
-            onNextSearchInput(e.target.value)
-          }}
+          placeholder="Search a stock ticker..."
+          // uncomment when backend is hooked up
+          // onChange={(e) => {
+          //   onNextSearchInput(e.target.value)
+          // }}
         />
       </div>
-      <div>
-        {options.map((option) => (
-          <div key={option.value} onClick={() => onCompanySelection(option.value)}>
-            { option.label }
-          </div>
-        ))}
-      </div>
-    </>
+      {options.length ? optionsList() : ''}
+    </form>
   )
 }
