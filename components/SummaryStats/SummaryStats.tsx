@@ -1,66 +1,57 @@
-import React from 'react'
-import { summaryStats } from './mockData' // todo: replace dummy data with api data
-import { toUSD, toUsNum } from '../../utils/numbers'
-import styles from './SummaryStats.module.scss'
-import { tickerSelections$ } from '../TickerTypeahead'
-import { bind } from '@react-rxjs/core'
-import { switchMap } from 'rxjs/operators'
-import { ajax } from 'rxjs/ajax'
+import React from "react"
 
-/**
- * 
- */
- const [useSummaryStats, summaryStats$] = bind(
+import styles from "./SummaryStats.module.scss"
+import { tickerSelections$ } from "../TickerSearch"
+import { bind } from "@react-rxjs/core"
+import { map, switchMap, tap } from "rxjs/operators"
+import { ajax } from "rxjs/ajax"
+import { ISummaryStats } from "../../models/SummaryStats"
+import { summaryStatsConfig } from "./SummaryStats.config"
+
+interface IRow {
+  label: string
+  value: any
+}
+
+interface SummaryStatsViewModel {
+  companyName: string
+  stats: IRow[]
+}
+
+const [useSummaryStats] = bind(
   tickerSelections$.pipe(
-    switchMap(
-      (ticker) => ajax.getJSON(`http://localhost:3000/summary-stats/${ticker}`)
-      // Todo -> add catchError
-    )
+    switchMap((ticker) =>
+      ajax.getJSON<ISummaryStats>(`/api/summary-stats/${ticker}`).pipe(
+        map(({ companyName, ...summaryStats }) => ({
+          companyName,
+          stats: Object.entries(summaryStats).map(([statKey, statValue]) => {
+            const { label, formatter } = summaryStatsConfig[statKey]
+            return {
+              label,
+              value: formatter?.(statValue) ?? statValue,
+            } as IRow
+          }),
+        })),
+      ),
+    ),
   ),
-  {} // as SummaryStats -> our interface type
+  {} as SummaryStatsViewModel,
 )
 
+function Row({ label, value }: IRow) {
+  return (
+    <tr>
+      <th>{label}</th>
+      <td>{value}</td>
+    </tr>
+  )
+}
 
 export default function SummaryStats() {
-  // uncomment when  backend is hooked up :) 
-  // const summaryStats = useSummaryStats();
+  const summaryStats = useSummaryStats()
 
-  if(!summaryStats) {
-    return (<h2>Search a stock ticker</h2>)
-  }
-
-  const config = {
-    week52high: {
-      label: 'Highest Price (52 weeks)',
-      data: toUSD(summaryStats.week52high)
-    },
-    week52low: {
-      label: 'Lowest Price (52 weeks)',
-      data: toUSD(summaryStats.week52low)
-    },
-    avg30Volume: {
-      label: 'Average Volume (30 days)',
-      data: toUsNum(summaryStats.avg30Volume)
-    },
-    day30ChangePercent: {
-      label: 'Change Percentage (30 days)',
-      data: `${(summaryStats.day30ChangePercent * 100).toFixed(2)}%`
-    },
-    employees: {
-      label: 'Employees',
-      data: toUsNum(summaryStats.employees)
-    }
-  }
-
-  const rows = () => {
-    return Object.entries(config).map(([key, entry]) => {
-      return (
-        <tr key={key}>
-          <th>{entry.label}</th>
-          <td>{entry.data}</td>
-        </tr>
-      )
-    })
+  if (!Object.keys(summaryStats)) {
+    return <h2>Search a stock ticker</h2>
   }
 
   return (
@@ -69,7 +60,7 @@ export default function SummaryStats() {
       <table className={styles.summaryStats}>
         <caption>Summary</caption>
         <tbody>
-        {rows()}
+          {summaryStats.stats?.map(({ label, value }) => <Row key={label} label={label} value={value} />) || null}
         </tbody>
       </table>
     </div>

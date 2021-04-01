@@ -1,4 +1,4 @@
-export const mockResults = [
+export const stubSearchResults = [
   {
     symbol: "TSLA-SE",
     cik: "0001318605",
@@ -79,5 +79,24 @@ export const mockResults = [
     region: "ZW",
     exchange: "ZIM",
     sector: "Management of Companies and Enterprises",
+  },
+]
+
+export const stubOptions = [
+  {
+    value: "nyse:a",
+    label: "NYSE:A",
+  },
+  {
+    value: "nyse:f",
+    label: "NYSE:F",
+  },
+  {
+    value: "nyse:v",
+    label: "NYSE:V",
+  },
+  {
+    value: "nyse:b",
+    label: "NYSE:B",
   },
 ]
