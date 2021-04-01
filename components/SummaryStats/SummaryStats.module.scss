@@ -1,11 +1,26 @@
+.wrapper {
+  width: 90%;
+  margin: 4rem auto;
+  max-width: 500px;
+  border-top: 2px solid #d3d3d357;
+  padding: 16px 0;
+}
+
+.title {
+  text-align: center;
+}
+
 .summaryStats {
   border-collapse: collapse;
   width: 100%;
+
   caption {
     font-weight: bold;
     text-transform: uppercase;
     line-height: 2;
     font-size: 1.3rem;
+    background-color: blue;
+    color: white;
   }
 
   tr {
