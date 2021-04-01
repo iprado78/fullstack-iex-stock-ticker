@@ -1,3 +1,3 @@
-import SummaryStats from './SummaryStats';
+import SummaryStats from "./SummaryStats"
 
-export default SummaryStats;
+export default SummaryStats
