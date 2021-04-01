@@ -1,55 +1,66 @@
-import React from 'react'
-import { summaryStats } from './mockData' // todo: replace dummy data with api data
-import { toUSD, toUsNum } from '../../utils/numbers'
-import styles from './SummaryStats.module.scss'
+import React from "react"
+
+import styles from "./SummaryStats.module.scss"
+import { tickerSelections$ } from "../TickerSearch"
+import { bind } from "@react-rxjs/core"
+import { map, switchMap, tap } from "rxjs/operators"
+import { ajax } from "rxjs/ajax"
+import { ISummaryStats } from "../../models/SummaryStats"
+import { summaryStatsConfig } from "./SummaryStats.config"
+
+interface IRow {
+  label: string
+  value: any
+}
+
+interface SummaryStatsViewModel {
+  companyName: string
+  stats: IRow[]
+}
+
+const [useSummaryStats] = bind(
+  tickerSelections$.pipe(
+    switchMap((ticker) =>
+      ajax.getJSON<ISummaryStats>(`/api/summary-stats/${ticker}`).pipe(
+        map(({ companyName, ...summaryStats }) => ({
+          companyName,
+          stats: Object.entries(summaryStats).map(([statKey, statValue]) => {
+            const { label, formatter } = summaryStatsConfig[statKey]
+            return {
+              label,
+              value: formatter?.(statValue) ?? statValue,
+            } as IRow
+          }),
+        })),
+      ),
+    ),
+  ),
+  {} as SummaryStatsViewModel,
+)
+
+function Row({ label, value }: IRow) {
+  return (
+    <tr>
+      <th>{label}</th>
+      <td>{value}</td>
+    </tr>
+  )
+}
 
 export default function SummaryStats() {
+  const summaryStats = useSummaryStats()
 
-  if(!summaryStats) {
-    return (<h2>Search a stock ticker</h2>)
-  }
-
-  const config = {
-    week52high: {
-      label: 'Highest Price (52 weeks)',
-      data: toUSD(summaryStats.week52high)
-    },
-    week52low: {
-      label: 'Lowest Price (52 weeks)',
-      data: toUSD(summaryStats.week52low)
-    },
-    avg30Volume: {
-      label: 'Average Volume (30 days)',
-      data: toUsNum(summaryStats.avg30Volume)
-    },
-    day30ChangePercent: {
-      label: 'Change Percentage (30 days)',
-      data: `${(summaryStats.day30ChangePercent * 100).toFixed(2)}%`
-    },
-    employees: {
-      label: 'Employees',
-      data: toUsNum(summaryStats.employees)
-    }
-  }
-
-  const rows = () => {
-    return Object.entries(config).map(([key, entry]) => {
-      return (
-        <tr>
-          <th>{entry.label}</th>
-          <td>{entry.data}</td>
-        </tr>
-      )
-    })
+  if (!Object.keys(summaryStats)) {
+    return <h2>Search a stock ticker</h2>
   }
 
   return (
-    <div>
+    <div className={styles.wrapper}>
       <h2>{summaryStats.companyName}</h2>
       <table className={styles.summaryStats}>
         <caption>Summary</caption>
         <tbody>
-        {rows()}
+          {summaryStats.stats?.map(({ label, value }) => <Row key={label} label={label} value={value} />) || null}
         </tbody>
       </table>
     </div>

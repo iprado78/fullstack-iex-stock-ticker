@@ -5,7 +5,7 @@ import AppContainer from "../components/AppContainer"
 import Main from "../components/Main"
 import SummaryStats from "../components/SummaryStats"
 import Footer from "../components/Footer"
-import TickerTypeahead from "../components/TickerTypeahead"
+import TickerSearch from "../components/TickerSearch"
 
 const appTitle = "IEX Ticker Dashboard"
 
@@ -19,9 +19,8 @@ export default function Home() {
       <Header title={appTitle} />
       <Main>
         <div className={styles.description}>
-          <TickerTypeahead />
+          <TickerSearch />
         </div>
-
         <SummaryStats />
       </Main>
       <Footer />
