@@ -2,7 +2,7 @@ import axios from "axios"
 import { SearchResult } from "../../../types/searchResult"
 
 const BASE_URL = "https://cloud.iexapis.com"
-const TOKEN = "pk_63509e5b43384ab08845be28759fb5ea"
+const TOKEN = process.env["IEX_API_TOKEN"];
 
 const fetcher = async (fragment: string): Promise<SearchResult[]> => {
   try {
