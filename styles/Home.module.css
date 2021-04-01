@@ -123,3 +123,8 @@
     flex-direction: column;
   }
 }
+
+.imgWrapper {
+  text-align: left;
+  padding: 8px 16px;
+}
