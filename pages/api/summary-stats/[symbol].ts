@@ -4,15 +4,15 @@ import { ISummaryStats } from "../../../models/SummaryStats"
 const BASE_URL = "https://cloud.iexapis.com"
 const TOKEN = process.env["IEX_API_TOKEN"];
 
-const fetcher = async (symbol: string): Promise<StockData> => {
+const fetcher = async (symbol: string) => {
   try {
     console.log("Backend ****", symbol)
-    const { data } = await axios.get(`${BASE_URL}/stable/stock/${symbol}/stats?token=${TOKEN}`)
+    const { data } = await axios.get<ISummaryStats>(`${BASE_URL}/stable/stock/${symbol}/stats?token=${TOKEN}`)
     console.log("Backend ****", data)
     return data
   } catch (error) {
     console.error(error)
-    return {} as StockData
+    return {} as ISummaryStats
   }
 }
 
