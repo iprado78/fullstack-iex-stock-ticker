@@ -2,14 +2,17 @@ import axios from "axios"
 import type { NextApiRequest, NextApiResponse } from "next"
 import { ICompanyOverview } from "@/models/CompanyOverview"
 
-const BASE_URL = "https://cloud.iexapis.com"
-const TOKEN = process.env["IEX_API_TOKEN"]
+const { IEX_API_TOKEN: TOKEN } = process.env
 
 const fetcher = async (symbol: string) => {
   try {
     const [r1, r2] = await Promise.all([
-      axios.get(`${BASE_URL}/stable/stock/${symbol}/company?token=${TOKEN}`),
-      axios.get(`${BASE_URL}/stable/stock/${symbol}/logo?token=${TOKEN}`),
+      axios.get(
+        `https://cloud.iexapis.com/stable/stock/${symbol}/company?token=${TOKEN}`,
+      ),
+      axios.get(
+        `https://cloud.iexapis.com/stable/stock/${symbol}/logo?token=${TOKEN}`,
+      ),
     ])
     return { ...r1.data, ...r2.data }
   } catch (error) {

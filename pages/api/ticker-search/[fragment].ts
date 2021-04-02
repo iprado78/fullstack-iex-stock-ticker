@@ -2,13 +2,12 @@ import axios from "axios"
 import type { NextApiRequest, NextApiResponse } from "next"
 import { ITickerSearchResult } from "@/models/TickerSearchResult"
 
-const BASE_URL = "https://cloud.iexapis.com"
-const TOKEN = process.env["IEX_API_TOKEN"]
+const { IEX_API_TOKEN: TOKEN } = process.env
 
 const fetcher = async (fragment: string) => {
   try {
     const { data } = await axios.get<ITickerSearchResult[]>(
-      `${BASE_URL}/stable/search/${fragment}?token=${TOKEN}`,
+      `https://cloud.iexapis.com/stable/search/${fragment}?token=${TOKEN}`,
     )
     return data
   } catch (error) {

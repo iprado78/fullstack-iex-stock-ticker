@@ -2,13 +2,12 @@ import axios from "axios"
 import type { NextApiRequest, NextApiResponse } from "next"
 import { ISummaryStats } from "@/models/SummaryStats"
 
-const BASE_URL = "https://cloud.iexapis.com"
-const TOKEN = process.env["IEX_API_TOKEN"]
+const { IEX_API_TOKEN: TOKEN } = process.env
 
 const fetcher = async (symbol: string) => {
   try {
     const { data } = await axios.get<ISummaryStats>(
-      `${BASE_URL}/stable/stock/${symbol}/stats?token=${TOKEN}`,
+      `https://cloud.iexapis.com/stable/stock/${symbol}/stats?token=${TOKEN}`,
     )
     console.log("Backend ****", data)
     return data
