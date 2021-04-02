@@ -8,7 +8,7 @@ import Footer from "../components/Footer"
 import TickerSearch from "../components/TickerSearch"
 import CompanyOverview from "../components/CompanyOverview"
 
-const appTitle = "IEX Ticker Dashboard"
+const appTitle = "US Bank - Stock Analytics"
 
 export default function Home() {
   return (
