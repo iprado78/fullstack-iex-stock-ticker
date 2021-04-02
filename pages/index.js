@@ -22,7 +22,7 @@ export default function Home() {
         <div className={styles.description}>
           <TickerSearch />
         </div>
-        <div>
+        <div className={styles.contentWrapper}>
           <CompanyOverview />
           <SummaryStats />
         </div>
