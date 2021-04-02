@@ -55,9 +55,9 @@ export { tickerSelections$ }
 
 function OptionsList({ options }: { options: TickerOption[] }) {
   return (
-    <ul className={styles.dropdown}>
+    <ul className={styles.dropdown} role="listbox">
       {options.map((option) => (
-        <li key={option.value}>
+        <li key={option.value} role="option">
           <button type="button" className={styles.dropdown__option} onClick={
             () => {
               onTickerSelection(option.value)
@@ -74,8 +74,18 @@ function OptionsList({ options }: { options: TickerOption[] }) {
 export default function TickerSearch() {
   const options = useOptions()
 
+  const onFormSubmit = (e) => {
+    e.preventDefault()
+
+    if(options.length) {
+      e.target.querySelector('button').focus();
+    } else {
+      alert('No stock ticker found with that symbol. Please search something else.')
+    }
+  }
+
   return (
-    <form className={styles.search}>
+    <form className={styles.search} onSubmit={onFormSubmit}>
       <div>
         <label className={styles.visuallyHide} htmlFor="ticker-select">
           Ticker Select
