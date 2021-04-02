@@ -7,7 +7,7 @@ import SummaryStats from "../components/SummaryStats"
 import Footer from "../components/Footer"
 import TickerSearch from "../components/TickerSearch"
 
-const appTitle = "IEX Ticker Dashboard"
+const appTitle = "US Bank - Stock Analytics"
 
 export default function Home() {
   return (
