@@ -19,10 +19,10 @@ const [useCompanyOverview] = bind(
   {} as ICompanyOverview
 )
 
-// why aren't there any errors if company data is an empty object? (ie on load)
 export default function CompanyOverview() {
 
-  const companyOverview = useCompanyOverview();
+  const companyOverview = useCompanyOverview()
+  
   if(companyOverview.description || companyOverview.imgUrl) {
     return (
       <article className={styles.wrapper}>
