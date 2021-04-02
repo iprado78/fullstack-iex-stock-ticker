@@ -6,6 +6,7 @@ import Main from "../components/Main"
 import SummaryStats from "../components/SummaryStats"
 import Footer from "../components/Footer"
 import TickerSearch from "../components/TickerSearch"
+import CompanyOverview from "../components/CompanyOverview"
 
 const appTitle = "IEX Ticker Dashboard"
 
@@ -21,7 +22,10 @@ export default function Home() {
         <div className={styles.description}>
           <TickerSearch />
         </div>
-        <SummaryStats />
+        <div>
+          <CompanyOverview />
+          <SummaryStats />
+        </div>
       </Main>
       <Footer />
     </AppContainer>
