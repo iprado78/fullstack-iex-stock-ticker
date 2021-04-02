@@ -50,8 +50,8 @@ function Row({ label, value }: IRow) {
 export default function SummaryStats() {
   const summaryStats = useSummaryStats()
 
-  if (!Object.keys(summaryStats)) {
-    return <h2>Search a stock ticker</h2>
+  if (!Object.keys(summaryStats).length) {
+    return ''
   }
 
   return (
