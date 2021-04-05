@@ -1,4 +1,4 @@
-import { ISummaryStats } from "../../../models/SummaryStats"
+import { ISummaryStats } from "@/models/SummaryStats"
 
 export const summaryStats: ISummaryStats = {
   companyName: "Bank Of America Corp.",
