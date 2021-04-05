@@ -1,4 +1,7 @@
-const USD = new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" })
+const USD = new Intl.NumberFormat("en-US", {
+  style: "currency",
+  currency: "USD",
+})
 
 export const toUSD = (num: number): string => {
   return USD.format(num)

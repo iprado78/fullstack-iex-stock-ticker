@@ -1,11 +1,11 @@
 import React from "react"
-import { catchError, debounceTime, map, switchMap } from "rxjs/operators"
-import styles from "./TickerSearch.module.scss"
+import { of } from "rxjs"
+import { ajax } from "rxjs/ajax"
+import { debounceTime, map, switchMap } from "rxjs/operators"
 import { createSignal, mergeWithKey } from "@react-rxjs/utils"
 import { bind } from "@react-rxjs/core"
-import { ajax } from "rxjs/ajax"
-import { ITickerSearchResult } from "../../models/TickerSearchResult"
-import { of } from "rxjs"
+import { ITickerSearchResult } from "@/models/TickerSearchResult"
+import styles from "./TickerSearch.module.scss"
 
 const [searchInputs$, onNextSearchInput] = createSignal<string>()
 
@@ -20,36 +20,36 @@ const searchResults$ = searchInputs$.pipe(
   debounceTime(300),
   switchMap(
     (searchInput) =>
-      searchInput.length ?
-      ajax.getJSON<ITickerSearchResult[]>(`/api/ticker-search/${searchInput}`).pipe(
-        map((searchResults) => {
-          return searchResults.map(
-            ({ symbol, sector }) =>
-              ({
-                label: `${symbol} - ${sector}`,
-                value: symbol,
-              } as TickerOption),
-          )
-        }) 
-      ) : of([] as TickerOption[])
+      searchInput.length
+        ? ajax
+            .getJSON<ITickerSearchResult[]>(`/api/ticker-search/${searchInput}`)
+            .pipe(
+              map((searchResults) => {
+                return searchResults.map(
+                  ({ symbol, sector }) =>
+                    ({
+                      label: `${symbol} - ${sector}`,
+                      value: symbol,
+                    } as TickerOption),
+                )
+              }),
+            )
+        : of([] as TickerOption[]),
     // ToDo -> add catchError => propagate to ErrorBoundary
-  ))
-
-const [useOptions, options$] = bind(
-  mergeWithKey(
-    {
-      searchResults: searchResults$,
-      tickerSelections: tickerSelections$
-    }
-  ).pipe(
-    map(
-      (event) =>
-        event.type === 'searchResults' ? event.payload : [] as TickerOption[]
-    )
   ),
-  [] as TickerOption[]
 )
 
+const [useOptions] = bind(
+  mergeWithKey({
+    searchResults: searchResults$,
+    tickerSelections: tickerSelections$,
+  }).pipe(
+    map((event) =>
+      event.type === "searchResults" ? event.payload : ([] as TickerOption[]),
+    ),
+  ),
+  [] as TickerOption[],
+)
 
 export { tickerSelections$ }
 
@@ -57,12 +57,14 @@ function OptionsList({ options }: { options: TickerOption[] }) {
   return (
     <ul className={styles.dropdown} role="listbox">
       {options.map((option) => (
-        <li key={option.value} role="option">
-          <button type="button" className={styles.dropdown__option} onClick={
-            () => {
+        <li key={option.value}>
+          <button
+            type="button"
+            className={styles.dropdown__option}
+            onClick={() => {
               onTickerSelection(option.value)
-            }
-            }>
+            }}
+          >
             {option.label}
           </button>
         </li>
@@ -76,11 +78,12 @@ export default function TickerSearch() {
 
   const onFormSubmit = (e) => {
     e.preventDefault()
-
-    if(options.length) {
-      e.target.querySelector('button').focus();
+    if (options.length) {
+      e.target.querySelector("button").focus()
     } else {
-      alert('No stock ticker found with that symbol. Please search something else.')
+      alert(
+        "No stock ticker found with that symbol. Please search something else.",
+      )
     }
   }
 

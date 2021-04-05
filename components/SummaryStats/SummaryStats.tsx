@@ -1,12 +1,11 @@
 import React from "react"
-
-import styles from "./SummaryStats.module.scss"
-import { tickerSelections$ } from "../TickerSearch"
-import { bind } from "@react-rxjs/core"
-import { map, switchMap, tap } from "rxjs/operators"
+import { map, switchMap } from "rxjs/operators"
 import { ajax } from "rxjs/ajax"
-import { ISummaryStats } from "../../models/SummaryStats"
+import { bind } from "@react-rxjs/core"
+import { ISummaryStats } from "@/models/SummaryStats"
+import { tickerSelections$ } from "../TickerSearch"
 import { summaryStatsConfig } from "./SummaryStats.config"
+import styles from "./SummaryStats.module.scss"
 
 interface IRow {
   label: string
@@ -51,7 +50,7 @@ export default function SummaryStats() {
   const summaryStats = useSummaryStats()
 
   if (!Object.keys(summaryStats).length) {
-    return ''
+    return null
   }
 
   return (
@@ -60,7 +59,9 @@ export default function SummaryStats() {
       <table className={styles.summaryStats}>
         <caption>Summary</caption>
         <tbody>
-          {summaryStats.stats?.map(({ label, value }) => <Row key={label} label={label} value={value} />) || null}
+          {summaryStats.stats?.map(({ label, value }) => (
+            <Row key={label} label={label} value={value} />
+          )) || null}
         </tbody>
       </table>
     </div>

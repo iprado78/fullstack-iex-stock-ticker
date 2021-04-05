@@ -1,5 +1,5 @@
-import { ISummaryStats } from "../../models/SummaryStats"
-import { toUSD, toUsNum } from "../../utils/numbers"
+import { ISummaryStats } from "@/models/SummaryStats"
+import { toUSD, toUsNum } from "@/utils/numbers"
 
 export const summaryStatsConfig: Record<
   keyof Omit<ISummaryStats, "companyName">,
