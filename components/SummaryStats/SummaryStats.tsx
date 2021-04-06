@@ -4,7 +4,10 @@ import { ajax } from "rxjs/ajax"
 import { bind } from "@react-rxjs/core"
 import { ISummaryStats } from "@/models/SummaryStats"
 import { tickerSelections$ } from "../TickerSearch"
-import { summaryStatsConfig } from "./SummaryStats.config"
+import {
+  summaryStatsConfig,
+  SummaryStatsConfigKey,
+} from "./SummaryStats.config"
 import styles from "./SummaryStats.module.scss"
 
 interface IRow {
@@ -24,7 +27,9 @@ const [useSummaryStats] = bind(
         map(({ companyName, ...summaryStats }) => ({
           companyName,
           stats: Object.entries(summaryStats).map(([statKey, statValue]) => {
-            const { label, formatter } = summaryStatsConfig[statKey]
+            const { label, formatter } = summaryStatsConfig[
+              statKey as SummaryStatsConfigKey
+            ] // ToDo: create type-preserving Object.entries, Array.prototype.map
             return {
               label,
               value: formatter?.(statValue) ?? statValue,

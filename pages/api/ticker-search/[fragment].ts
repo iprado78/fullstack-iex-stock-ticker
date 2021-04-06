@@ -1,4 +1,5 @@
 import axios from "axios"
+import type { NextApiRequest, NextApiResponse } from "next"
 import { ITickerSearchResult } from "@/models/TickerSearchResult"
 
 const BASE_URL = "https://cloud.iexapis.com"
@@ -16,9 +17,9 @@ const fetcher = async (fragment: string) => {
   }
 }
 
-const tickerSearch = (req, res) => {
+const tickerSearch = (req: NextApiRequest, res: NextApiResponse) => {
   const { fragment } = req.query
-  fetcher(fragment)
+  fetcher(fragment as string)
     .then((data) => {
       res
         .status(200)
