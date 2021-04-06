@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useRef } from "react"
 import { of } from "rxjs"
 import { ajax } from "rxjs/ajax"
 import { debounceTime, map, switchMap } from "rxjs/operators"
@@ -8,7 +8,6 @@ import { ITickerSearchResult } from "@/models/TickerSearchResult"
 import styles from "./TickerSearch.module.scss"
 
 const [searchInputs$, onNextSearchInput] = createSignal<string>()
-
 const [tickerSelections$, onTickerSelection] = createSignal<string>()
 
 interface TickerOption {
@@ -53,12 +52,19 @@ const [useOptions] = bind(
 
 export { tickerSelections$ }
 
-function OptionsList({ options }: { options: TickerOption[] }) {
+function OptionsList({
+  options,
+  buttonRef,
+}: {
+  options: TickerOption[]
+  buttonRef: React.RefObject<HTMLButtonElement>
+}) {
   return (
     <ul className={styles.dropdown} role="listbox">
-      {options.map((option) => (
+      {options.map((option, index) => (
         <li key={option.value}>
           <button
+            ref={index === 0 ? buttonRef : undefined}
             type="button"
             className={styles.dropdown__option}
             onClick={() => {
@@ -75,20 +81,22 @@ function OptionsList({ options }: { options: TickerOption[] }) {
 
 export default function TickerSearch() {
   const options = useOptions()
-
-  const onFormSubmit = (e) => {
-    e.preventDefault()
-    if (options.length) {
-      e.target.querySelector("button").focus()
-    } else {
-      alert(
-        "No stock ticker found with that symbol. Please search something else.",
-      )
-    }
-  }
+  const buttonRef = useRef<HTMLButtonElement>(null)
 
   return (
-    <form className={styles.search} onSubmit={onFormSubmit}>
+    <form
+      className={styles.search}
+      onSubmit={(e) => {
+        e.preventDefault()
+        if (buttonRef.current) {
+          buttonRef.current.focus()
+        }
+        /**
+         * ToDo add red highlight to input and inline message when empty
+         * search
+         */
+      }}
+    >
       <div>
         <label className={styles.visuallyHide} htmlFor="ticker-select">
           Ticker Select
@@ -103,7 +111,9 @@ export default function TickerSearch() {
           }}
         />
       </div>
-      {options.length ? <OptionsList options={options} /> : null}
+      {options.length ? (
+        <OptionsList options={options} buttonRef={buttonRef} />
+      ) : null}
     </form>
   )
 }

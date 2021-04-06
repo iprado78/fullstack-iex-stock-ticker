@@ -1,4 +1,5 @@
 import axios from "axios"
+import type { NextApiRequest, NextApiResponse } from "next"
 import { ISummaryStats } from "@/models/SummaryStats"
 
 const BASE_URL = "https://cloud.iexapis.com"
@@ -17,9 +18,9 @@ const fetcher = async (symbol: string) => {
   }
 }
 
-const summaryStats = (req, res) => {
+const summaryStats = (req: NextApiRequest, res: NextApiResponse) => {
   const { symbol } = req.query
-  fetcher(symbol)
+  fetcher(symbol as string)
     .then(
       ({
         companyName,

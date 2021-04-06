@@ -1,4 +1,5 @@
 import axios from "axios"
+import type { NextApiRequest, NextApiResponse } from "next"
 import { ICompanyOverview } from "@/models/CompanyOverview"
 
 const BASE_URL = "https://cloud.iexapis.com"
@@ -17,10 +18,10 @@ const fetcher = async (symbol: string) => {
   }
 }
 
-const companyOverview = (req, res) => {
+const companyOverview = (req: NextApiRequest, res: NextApiResponse) => {
   const { symbol } = req.query
 
-  fetcher(symbol)
+  fetcher(symbol as string)
     .then(({ CEO: ceo, description, url: imgUrl, companyName }) => {
       res
         .status(200)

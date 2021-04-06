@@ -1,8 +1,10 @@
 import { ISummaryStats } from "@/models/SummaryStats"
 import { toUSD, toUsNum } from "@/utils/numbers"
 
+export type SummaryStatsConfigKey = keyof Omit<ISummaryStats, "companyName">
+
 export const summaryStatsConfig: Record<
-  keyof Omit<ISummaryStats, "companyName">,
+  SummaryStatsConfigKey,
   {
     label: string
     formatter?: (input: any) => any
