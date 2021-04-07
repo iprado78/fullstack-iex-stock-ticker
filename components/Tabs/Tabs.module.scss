@@ -2,7 +2,22 @@
   grid-area: tabs;
 }
 
+.buttonWrapper {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+}
+
 .button {
-  &.is-active {
-  }
+  border: none;
+  font-weight: bold;
+  text-transform: uppercase;
+  line-height: 2;
+  font-size: 1.3rem;
+  color: #0c2074;
+  background: white;
+}
+
+.isActive {
+  background-color: #0c2074;
+  color: white;
 }

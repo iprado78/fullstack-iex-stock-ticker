@@ -33,6 +33,9 @@ export default function Tabs({ tabLabels, children }: ITabsProps) {
         <button
           key={id}
           role="tab"
+          className={`${styles.button} ${
+            openTab === label ? styles.isActive : ""
+          }`} // i hate this
           onClick={() => setOpenTab(label)}
           aria-selected={openTab === label}
           aria-controls={`panel-${id}`}
@@ -70,7 +73,11 @@ export default function Tabs({ tabLabels, children }: ITabsProps) {
 
   return (
     <div className={styles.wrapper}>
-      <div role="tablist" aria-label="Tabbable content">
+      <div
+        role="tablist"
+        aria-label="Tabbable content"
+        className={styles.buttonWrapper}
+      >
         {generateButtons()}
       </div>
       {generateTabs()}
