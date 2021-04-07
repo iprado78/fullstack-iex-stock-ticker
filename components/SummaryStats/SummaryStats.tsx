@@ -51,24 +51,42 @@ function Row({ label, value }: IRow) {
   )
 }
 
-export default function SummaryStats() {
-  const summaryStats = useSummaryStats()
+// must please typescript
+// there's gotta be a cleaner way of doing this
+interface IStatsTableProps {
+  stats: IStats
+  caption: string
+}
 
-  if (!Object.keys(summaryStats).length) {
-    return null
-  }
+interface IStat {
+  label: string
+  value: string
+}
 
+interface IStats {
+  stats: IStat[]
+}
+
+function StatsTable({ stats, caption }: IStatsTableProps) {
   return (
     <div className={styles.wrapper}>
-      <h2>{summaryStats.companyName}</h2>
       <table className={styles.summaryStats}>
-        <caption>Summary</caption>
+        <caption className="visually-hidden">{caption}</caption>
         <tbody>
-          {summaryStats.stats?.map(({ label, value }) => (
+          {stats.stats?.map(({ label, value }) => (
             <Row key={label} label={label} value={value} />
           )) || null}
         </tbody>
       </table>
     </div>
   )
+}
+
+export default function SummaryStats() {
+  const summaryStats = useSummaryStats()
+  if (!Object.keys(summaryStats).length) {
+    return null
+  }
+
+  return <StatsTable stats={summaryStats} caption={"Summary"} />
 }

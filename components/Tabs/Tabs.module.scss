@@ -1,0 +1,8 @@
+.wrapper {
+  grid-area: tabs;
+}
+
+.button {
+  &.is-active {
+  }
+}

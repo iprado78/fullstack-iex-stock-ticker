@@ -8,6 +8,8 @@ import SummaryStats from "@/components/SummaryStats"
 import Footer from "@/components/Footer"
 import TickerSearch from "@/components/TickerSearch"
 import CompanyOverview from "@/components/CompanyOverview"
+import HistoricalByDay from "@/components/HistoricalByDay"
+import Tabs from "@/components/Tabs"
 
 const appTitle = "US Bank - Stock Analytics"
 
@@ -25,7 +27,10 @@ export default function Home() {
         </div>
         <div className={styles.contentWrapper}>
           <CompanyOverview />
-          <SummaryStats />
+          <Tabs tabLabels={["Summary", "Historical"]}>
+            <SummaryStats />
+            <HistoricalByDay />
+          </Tabs>
         </div>
       </Main>
       <Footer />
