@@ -10,8 +10,13 @@
   }
 }
 
+.flexContainer {
+  display: flex;
+  align-items: center;
+}
+
 .title {
-  text-align: center;
+  flex: 1 1 auto;
 }
 
 .summaryStats {

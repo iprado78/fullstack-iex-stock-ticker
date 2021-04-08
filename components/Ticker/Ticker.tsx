@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from "react"
 import { SocketIOContext } from "@/components/SocketIOProvider"
+import styles from "./Ticker.module.scss"
 
 export default function Ticker({ symbol }: { symbol: string }) {
   const [price, setPrice] = useState(null)
@@ -11,5 +12,5 @@ export default function Ticker({ symbol }: { symbol: string }) {
     })
   }, [symbol])
 
-  return <div>{price}</div>
+  return <h3 className={styles.price}>{price}</h3>
 }

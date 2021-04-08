@@ -72,8 +72,10 @@ export default function SummaryStats() {
 
   return (
     <div className={styles.wrapper}>
-      <h2>{summaryStats.companyName}</h2>
-      <Ticker symbol={symbol} />
+      <div className={styles.flexContainer}>
+        <h2 className={styles.title}>{summaryStats.companyName}</h2>
+        <Ticker symbol={symbol} />
+      </div>
       <table className={styles.summaryStats}>
         <caption>Summary</caption>
         <tbody>
