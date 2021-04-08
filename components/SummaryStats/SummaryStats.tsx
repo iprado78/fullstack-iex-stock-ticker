@@ -61,7 +61,7 @@ export default function SummaryStats() {
   const socket = useContext(SocketIOContext)
 
   useEffect(() => {
-    if (symbol) {
+    if (symbol && symbol.length > 0) {
       socket.send(symbol)
     }
   }, [symbol])

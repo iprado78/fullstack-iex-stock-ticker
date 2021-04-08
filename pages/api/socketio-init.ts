@@ -7,7 +7,7 @@ const { IEX_API_TOKEN: TOKEN } = process.env
 
 const sub = new BehaviorSubject<string>("")
 
-const ioHandler = (_req, res) => {
+const ioHandler = (_req: any, res: any) => {
   if (!res.socket.server.io) {
     console.log("*First use, starting websocket")
     const io = new Server(res.socket.server)
@@ -20,7 +20,10 @@ const ioHandler = (_req, res) => {
       })
 
       sub.subscribe((symbol) => {
-        iif(() => symbol && symbol.length != 0, timer(0, 5000))
+        iif(
+          () => (symbol !== null || symbol !== undefined) && symbol.length != 0,
+          timer(0, 5000),
+        )
           .pipe(
             switchMapTo(
               defer(() =>
