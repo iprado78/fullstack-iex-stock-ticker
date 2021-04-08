@@ -13,6 +13,8 @@ import Tabs from "@/components/Tabs"
 
 const appTitle = "US Bank - Stock Analytics"
 
+// todo: hide tabs until a ticker search exists
+
 export default function Home() {
   return (
     <AppContainer>
