@@ -1,7 +1,6 @@
 .wrapper {
   width: 100%;
-  margin: 0 auto;
-  max-width: 500px;
+  margin: 0;
   border-top: 2px solid #d3d3d357;
 
   @media (min-width: 768px) {
@@ -12,6 +11,16 @@
 
 .title {
   text-align: center;
+}
+
+.noContent {
+  font-size: 2rem;
+  font-size: italic;
+
+  img {
+    margin: 1rem;
+    display: block;
+  }
 }
 
 .table {

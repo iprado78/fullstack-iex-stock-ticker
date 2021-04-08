@@ -7,10 +7,10 @@ import styles from "./HistoricalByDay.module.scss"
 import { createSignal } from "@react-rxjs/utils"
 import { combineLatest, of } from "rxjs"
 import { tickerSelections$ } from "../TickerSearch"
-import { catchError, switchMap, tap } from "rxjs/operators"
+import { catchError, filter, map, switchMap, tap } from "rxjs/operators"
 import { ajax } from "rxjs/ajax"
 import { bind } from "@react-rxjs/core"
-import StatsTable from "../StatsTable"
+import StatsTable, { IStats } from "../StatsTable"
 
 /**
  * 
@@ -30,19 +30,46 @@ const [dateSelections$, onDateSelection] = createSignal<string>()
 
 const [useHistoricalByDay] = bind(combineLatest([tickerSelections$, dateSelections$])
   .pipe(
+    tap((arr) => {
+      console.log("In stream", arr)
+    }),
+    filter(([ticker, date]) => {
+      return ticker.length && date.length
+    }),
     switchMap(([ticker, date]) => {
-      // also works!
-      if(ticker && date) {
-        return ajax.getJSON(`/api/historical-by-day/${ticker}/${date}`)
-      }  
-      
-      return {}
+        return ajax.getJSON(`/api/historical-by-day/${ticker}/${date}`).pipe(
+          map(([result]: any) => {
+            debugger
+            return [
+              {
+                label: "Open",
+                value: result.open
+              },
+              {
+                label: "Close",
+                value: result.close
+              },
+              {
+                label: "High",
+                value: result.high
+              },
+              {
+                label: "Low",
+                value: result.low
+              },
+              {
+                label: "Change Percent",
+                value: result.changePercent
+              },
+            ]
+          })
+        )
     }),
     catchError((error) => {
       console.log('theres an eror')
       return of(error)
     })
-), {})
+), [])
 
 export default function HistoricalByDay() {
   const yesterday = new Date()
@@ -63,7 +90,6 @@ export default function HistoricalByDay() {
     onDateSelection(formatted)
   }, [date])
 
-
   return (
     <div>
         <DatePicker 
@@ -72,6 +98,7 @@ export default function HistoricalByDay() {
           filterDate={isPastWeekday}
           />
       <div>
+        <StatsTable caption="Historical Data By Day" stats={{ stats: historicalByDay}} /> 
       </div>
     </div>
   )

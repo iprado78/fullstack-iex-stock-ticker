@@ -80,7 +80,10 @@ export default function Tabs({ tabLabels, children }: ITabsProps) {
       >
         {generateButtons()}
       </div>
+      <div className={styles.tabContentWrapper}>
       {generateTabs()}
+      </div>
+
     </div>
   )
 }

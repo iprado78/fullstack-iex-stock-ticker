@@ -19,7 +19,7 @@ interface IStat {
   value: string
 }
 
-interface IStats {
+export interface IStats {
   stats: IStat[]
 }
 
@@ -33,8 +33,13 @@ function Row({ label, value }: IRow) {
 }
 
 export default function StatsTable({ stats, caption }: IStatsTableProps) {
+
   return (
     <div className={styles.wrapper}>
+      {
+        
+        stats?.stats?.length ? null : <p className={styles.noContent}>Enter new search params to view data <img src="https://media.giphy.com/media/BEob5qwFkSJ7G/giphy.gif" /></p>
+      }
       <table className={styles.table}>
         <caption className="visually-hidden">{caption}</caption>
         <tbody>

@@ -1,4 +1,4 @@
-import React, { useRef } from "react"
+import React, { useEffect, useRef } from "react"
 import { of } from "rxjs"
 import { ajax } from "rxjs/ajax"
 import { debounceTime, map, switchMap } from "rxjs/operators"
@@ -82,6 +82,13 @@ function OptionsList({
 export default function TickerSearch() {
   const options = useOptions()
   const buttonRef = useRef<HTMLButtonElement>(null)
+  const searchRef = useRef<HTMLInputElement>(null)
+
+  useEffect(() => {
+    if (searchRef.current) {
+      searchRef.current.focus()
+    }
+  }, [searchRef])
 
   return (
     <form
@@ -98,14 +105,14 @@ export default function TickerSearch() {
       }}
     >
       <div>
-        <label className={styles.visuallyHide} htmlFor="ticker-select">
-          Ticker Select
+        <label  htmlFor="ticker-select">
+          Search stock tickers
         </label>
         <input
           className={styles.search}
           id="ticker-select"
           type="search"
-          placeholder="Search a stock ticker..."
+          ref={searchRef}
           onChange={(e) => {
             onNextSearchInput(e.target.value)
           }}

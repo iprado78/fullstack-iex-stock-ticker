@@ -47,9 +47,6 @@ const [useSummaryStats] = bind(
 
 export default function SummaryStats() {
   const summaryStats = useSummaryStats()
-  if (!Object.keys(summaryStats).length) {
-    return null
-  }
 
   return <StatsTable stats={summaryStats} caption={"Summary"} />
 }
