@@ -1,7 +1,9 @@
-import React from "react"
+import React, { useContext, useEffect } from "react"
 import { map, switchMap } from "rxjs/operators"
 import { ajax } from "rxjs/ajax"
 import { bind } from "@react-rxjs/core"
+import { SocketIOContext } from "@/components/SocketIOProvider"
+import Ticker from "@/components/Ticker"
 import { ISummaryStats } from "@/models/SummaryStats"
 import { tickerSelections$ } from "../TickerSearch"
 import {
@@ -19,6 +21,8 @@ interface SummaryStatsViewModel {
   companyName: string
   stats: IRow[]
 }
+
+const [useTickerSelection] = bind(tickerSelections$, "")
 
 const [useSummaryStats] = bind(
   tickerSelections$.pipe(
@@ -53,6 +57,14 @@ function Row({ label, value }: IRow) {
 
 export default function SummaryStats() {
   const summaryStats = useSummaryStats()
+  const symbol = useTickerSelection()
+  const socket = useContext(SocketIOContext)
+
+  useEffect(() => {
+    if (symbol) {
+      socket.send(symbol)
+    }
+  }, [symbol])
 
   if (!Object.keys(summaryStats).length) {
     return null
@@ -61,6 +73,7 @@ export default function SummaryStats() {
   return (
     <div className={styles.wrapper}>
       <h2>{summaryStats.companyName}</h2>
+      <Ticker symbol={symbol} />
       <table className={styles.summaryStats}>
         <caption>Summary</caption>
         <tbody>
