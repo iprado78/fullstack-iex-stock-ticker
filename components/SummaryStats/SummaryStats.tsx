@@ -4,19 +4,13 @@ import { ajax } from "rxjs/ajax"
 import { bind } from "@react-rxjs/core"
 import { ISummaryStats } from "@/models/SummaryStats"
 import { tickerSelections$ } from "../TickerSearch"
-// import StatsTable from
+
 import {
   summaryStatsConfig,
   SummaryStatsConfigKey,
 } from "./SummaryStats.config"
-import styles from "./SummaryStats.module.scss"
-import StatsTable from "../StatsTable"
 
-// move somewhere that this can be shared
-interface IRow {
-  label: string
-  value: any
-}
+import StatsTable, { IRow } from "../StatsTable"
 
 const [useSummaryStats] = bind(
   tickerSelections$.pipe(
