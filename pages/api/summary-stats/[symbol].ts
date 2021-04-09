@@ -23,7 +23,6 @@ const summaryStats = (req: NextApiRequest, res: NextApiResponse) => {
   fetcher(symbol as string)
     .then(
       ({
-        companyName,
         week52high,
         week52low,
         avg30Volume,
@@ -31,7 +30,6 @@ const summaryStats = (req: NextApiRequest, res: NextApiResponse) => {
         employees,
       }) => {
         res.status(200).json({
-          companyName,
           week52high,
           week52low,
           avg30Volume,

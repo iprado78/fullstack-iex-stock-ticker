@@ -1,7 +1,7 @@
 import { ISummaryStats } from "@/models/SummaryStats"
 import { toUSD, toUsNum } from "@/utils/numbers"
 
-export type SummaryStatsConfigKey = keyof Omit<ISummaryStats, "companyName">
+export type SummaryStatsConfigKey = keyof ISummaryStats
 
 export const summaryStatsConfig: Record<
   SummaryStatsConfigKey,

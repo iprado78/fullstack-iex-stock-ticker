@@ -1,5 +1,5 @@
 import React from "react"
-import { map, switchMap } from "rxjs/operators"
+import { map, switchMap, tap } from "rxjs/operators"
 import { ajax } from "rxjs/ajax"
 import { bind } from "@react-rxjs/core"
 import { ISummaryStats } from "@/models/SummaryStats"
@@ -18,18 +18,12 @@ interface IRow {
   value: any
 }
 
-interface SummaryStatsViewModel {
-  companyName: string
-  stats: IRow[]
-}
-
 const [useSummaryStats] = bind(
   tickerSelections$.pipe(
     switchMap((ticker) =>
       ajax.getJSON<ISummaryStats>(`/api/summary-stats/${ticker}`).pipe(
-        map(({ companyName, ...summaryStats }) => ({
-          companyName,
-          stats: Object.entries(summaryStats).map(([statKey, statValue]) => {
+        map((summaryStats) =>
+          Object.entries(summaryStats).map(([statKey, statValue]) => {
             const { label, formatter } = summaryStatsConfig[
               statKey as SummaryStatsConfigKey
             ] // ToDo: create type-preserving Object.entries, Array.prototype.map
@@ -38,11 +32,11 @@ const [useSummaryStats] = bind(
               value: formatter?.(statValue) ?? statValue,
             } as IRow
           }),
-        })),
+        ),
       ),
     ),
   ),
-  {} as SummaryStatsViewModel,
+  {} as IRow[],
 )
 
 export default function SummaryStats() {

@@ -1,26 +1,16 @@
-import React from 'react'
+import React from "react"
 import styles from "./StatsTable.module.scss"
 
-
+// where should this be exported from?
 interface IRow {
   label: string
   value: any
 }
+export type { IRow }
 
-// must please typescript
-// there's gotta be a cleaner way of doing this
 interface IStatsTableProps {
-  stats: IStats
+  stats: IRow[]
   caption: string
-}
-
-interface IStat {
-  label: string
-  value: string
-}
-
-interface IStats {
-  stats: IStat[]
 }
 
 function Row({ label, value }: IRow) {
@@ -33,12 +23,16 @@ function Row({ label, value }: IRow) {
 }
 
 export default function StatsTable({ stats, caption }: IStatsTableProps) {
+  console.log(`
+    caption: ${caption}
+    stats: ${stats}
+  `)
   return (
     <div className={styles.wrapper}>
       <table className={styles.table}>
         <caption className="visually-hidden">{caption}</caption>
         <tbody>
-          {stats.stats?.map(({ label, value }) => (
+          {stats?.map(({ label, value }) => (
             <Row key={label} label={label} value={value} />
           )) || null}
         </tbody>
