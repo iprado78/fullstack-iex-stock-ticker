@@ -1,5 +1,5 @@
 import React from "react"
-import { map, switchMap, tap } from "rxjs/operators"
+import { map, switchMap } from "rxjs/operators"
 import { ajax } from "rxjs/ajax"
 import { bind } from "@react-rxjs/core"
 import { ISummaryStats } from "@/models/SummaryStats"
