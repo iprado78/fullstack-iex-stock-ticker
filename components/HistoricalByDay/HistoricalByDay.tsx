@@ -36,7 +36,6 @@ const [useHistoricalByDay] = bind(
         .getJSON<IHistoricalByDay>(`/api/historical-by-day/${ticker}/${date}`)
         .pipe(
           map((historicalByDay) => {
-            console.log("historicalbyday map", historicalByDay)
             return Object.entries(historicalByDay).map(
               ([histKey, histValue]) => {
                 const { label, formatter } = historicalByDayConfig[
@@ -52,7 +51,6 @@ const [useHistoricalByDay] = bind(
         ),
     ),
     catchError((error) => {
-      console.error(error)
       return of(error)
     }),
   ),
@@ -71,8 +69,6 @@ export default function HistoricalByDay() {
 
   const historicalByDay = useHistoricalByDay()
 
-  console.log("historicalbyday", historicalByDay)
-
   useEffect(() => {
     let formatted = dayjs(date).format("YYYYMMDD")
     onDateSelection(formatted)
@@ -82,7 +78,7 @@ export default function HistoricalByDay() {
     <div>
       <DatePicker
         selected={date}
-        onChange={(date) => setDate(date as Date)}
+        onChange={(date: Date) => setDate(date as Date)}
         filterDate={isPastWeekday}
       />
       <div>

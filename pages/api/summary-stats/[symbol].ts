@@ -10,7 +10,6 @@ const fetcher = async (symbol: string) => {
     const { data } = await axios.get<ISummaryStats>(
       `${BASE_URL}/stable/stock/${symbol}/stats?token=${TOKEN}`,
     )
-    // console.log("Backend ****", data)
     return data
   } catch (error) {
     console.error(error)
