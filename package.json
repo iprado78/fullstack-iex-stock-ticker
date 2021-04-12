@@ -33,7 +33,6 @@
   "dependencies": {
     "@react-rxjs/core": "^0.6.6",
     "@react-rxjs/utils": "^0.7.0",
-    "@types/react-datepicker": "^3.1.8",
     "axios": "^0.21.1",
     "dayjs": "^1.10.4",
     "next": "10.1.2",
@@ -44,6 +43,7 @@
   },
   "devDependencies": {
     "@types/react": "^17.0.3",
+    "@types/react-datepicker": "^3.1.8",
     "@typescript-eslint/eslint-plugin": "^2.13.0",
     "@typescript-eslint/parser": "^2.13.0",
     "babel-eslint": "^10.1.0",
