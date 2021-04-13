@@ -30,7 +30,7 @@ export default function StatsTable({ stats, caption }: IStatsTableProps) {
         <tbody>
           {stats?.map(({ label, value }) => (
             <Row key={label} label={label} value={value} />
-          )) || null}
+          ))}
         </tbody>
       </table>
     </div>
