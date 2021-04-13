@@ -1,5 +1,5 @@
 import { IHistoricalByDay } from "@/models/HistoricalByDay"
-import { toUSD, toUsNum } from "@/utils/numbers"
+import { toUSD, toPercent } from "@/utils/numbers"
 
 export const historicalByDayConfig: Record<
   keyof IHistoricalByDay,
@@ -25,7 +25,7 @@ export const historicalByDayConfig: Record<
     formatter: toUSD,
   },
   changePercent: {
-    label: "Change %",
-    formatter: toUsNum,
+    label: "Change",
+    formatter: toPercent,
   },
 }

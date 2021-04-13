@@ -1,14 +1,15 @@
 import React, { useRef } from "react"
 import { of } from "rxjs"
 import { ajax } from "rxjs/ajax"
-import { debounceTime, map, switchMap } from "rxjs/operators"
+import { debounceTime, map, shareReplay, switchMap } from "rxjs/operators"
 import { createSignal, mergeWithKey } from "@react-rxjs/utils"
 import { bind } from "@react-rxjs/core"
 import { ITickerSearchResult } from "@/models/TickerSearchResult"
 import styles from "./TickerSearch.module.scss"
 
 const [searchInputs$, onNextSearchInput] = createSignal<string>()
-const [tickerSelections$, onTickerSelection] = createSignal<string>()
+const [_tS$, onTickerSelection] = createSignal<string>()
+const tickerSelections$ = _tS$.pipe(shareReplay(1))
 
 interface TickerOption {
   value: string

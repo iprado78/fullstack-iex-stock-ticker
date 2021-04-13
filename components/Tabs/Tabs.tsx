@@ -1,17 +1,26 @@
 import React, { useState } from "react"
 import type { ReactNode } from "react"
 import classNames from "classnames"
-
+import { map, take } from "rxjs/operators"
+import { bind } from "@react-rxjs/core"
+import { tickerSelections$ } from "../TickerSearch"
 import styles from "./Tabs.module.scss"
+
 /**
  *
  * @todo implement left-right arrow navigation of tabs:
  * https://dev.to/eevajonnapanula/keyboard-accessible-tabs-with-react-5ch4
  */
+const [useHasTickerSelection] = bind(
+  tickerSelections$.pipe(
+    take(1),
+    map((ticker) => !!ticker),
+  ),
+  false,
+)
 
 interface ITabsProps {
   tabLabels: string[]
-  // is this the right way to type react children?
   children: ReactNode[]
 }
 
@@ -23,7 +32,7 @@ interface ITabButtonProps {
 }
 
 interface ITabPanel {
-  content: ReactNode
+  children: ReactNode
   isOpen: boolean
   id: string
 }
@@ -44,7 +53,7 @@ const TabButton = ({ isOpen, label, id, onTabClick }: ITabButtonProps) => {
   )
 }
 
-const TabPanel = ({ content, isOpen, id }: ITabPanel) => {
+const TabPanel = ({ children, isOpen, id }: ITabPanel) => {
   return (
     <div
       key={id}
@@ -54,13 +63,18 @@ const TabPanel = ({ content, isOpen, id }: ITabPanel) => {
       hidden={isOpen}
       tabIndex={0}
     >
-      {content}
+      {children}
     </div>
   )
 }
 
 export default function Tabs({ tabLabels, children }: ITabsProps) {
   const [openTab, setOpenTab] = useState(tabLabels[0])
+  const hasTickerSelection = useHasTickerSelection()
+
+  if (!hasTickerSelection) {
+    return <div>Nothing to see here</div>
+  }
 
   return (
     <div className={styles.wrapper}>
@@ -84,9 +98,10 @@ export default function Tabs({ tabLabels, children }: ITabsProps) {
         <TabPanel
           id={`${tabLabels[index]}-${index}`}
           isOpen={openTab === tabLabels[index]}
-          content={child}
           key={tabLabels[index]}
-        />
+        >
+          {child}
+        </TabPanel>
       ))}
     </div>
   )

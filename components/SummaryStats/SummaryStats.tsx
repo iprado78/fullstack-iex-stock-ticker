@@ -30,7 +30,7 @@ const [useSummaryStats] = bind(
       ),
     ),
   ),
-  {} as IRow[],
+  [] as IRow[],
 )
 
 export default function SummaryStats() {
