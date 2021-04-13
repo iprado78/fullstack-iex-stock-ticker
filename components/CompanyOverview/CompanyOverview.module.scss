@@ -1,13 +1,38 @@
+@import "../../styles/variables.scss";
+
 .wrapper {
-  max-width: 500px;
-  margin: auto;
   border-top: 2px solid #d3d3d357;
   padding: 16px 0;
-  grid-area: sidebar;
+  margin: 0 auto 3rem;
 
-  @media (min-width: 768px) {
+  @media (min-width: $laptop) {
+    margin: 0;
     padding: 0;
     border: none;
-    text-align: right;
+    text-align: left;
+    order: 1;
+    max-width: 25%;
+  }
+
+  header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    h3 {
+      margin-top: 0.5rem;
+    }
+
+    h1 {
+      margin: 0;
+    }
+
+    h3 {
+      font-size: 0.75rem;
+    }
+  }
+
+  p {
+    text-align: justify;
   }
 }

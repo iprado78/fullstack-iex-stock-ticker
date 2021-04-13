@@ -1,5 +1,5 @@
 .wrapper {
-  grid-area: tabs;
+  min-width: 60%;
 }
 
 .buttonWrapper {
@@ -20,4 +20,8 @@
 .isActive {
   background-color: #0c2074;
   color: white;
+}
+
+.tabContentWrapper {
+  padding: 2rem 0;
 }

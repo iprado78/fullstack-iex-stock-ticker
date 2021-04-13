@@ -73,7 +73,12 @@ export default function Tabs({ tabLabels, children }: ITabsProps) {
   const hasTickerSelection = useHasTickerSelection()
 
   if (!hasTickerSelection) {
-    return <div>Nothing to see here</div>
+    return (
+      <div>
+        <p>Nothing to see here...</p>
+        <img src="https://media.giphy.com/media/BEob5qwFkSJ7G/giphy.gif" />
+      </div>
+    )
   }
 
   return (
@@ -93,16 +98,17 @@ export default function Tabs({ tabLabels, children }: ITabsProps) {
           />
         ))}
       </div>
-
-      {children.map((child, index) => (
-        <TabPanel
-          id={`${tabLabels[index]}-${index}`}
-          isOpen={openTab === tabLabels[index]}
-          key={tabLabels[index]}
-        >
-          {child}
-        </TabPanel>
-      ))}
+      <div className={styles.tabContentWrapper}>
+        {children.map((child, index) => (
+          <TabPanel
+            id={`${tabLabels[index]}-${index}`}
+            isOpen={openTab === tabLabels[index]}
+            key={tabLabels[index]}
+          >
+            {child}
+          </TabPanel>
+        ))}
+      </div>
     </div>
   )
 }

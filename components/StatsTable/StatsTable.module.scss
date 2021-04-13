@@ -1,10 +1,11 @@
+@import "../../styles/variables.scss";
+
 .wrapper {
   width: 100%;
-  margin: 0 auto;
-  max-width: 500px;
+  margin: 0;
   border-top: 2px solid #d3d3d357;
 
-  @media (min-width: 768px) {
+  @media (min-width: $tablet) {
     grid-column: 2;
     grid-row: 1;
   }

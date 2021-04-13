@@ -28,11 +28,18 @@ export default function CompanyOverview() {
 
   return (
     <article className={styles.wrapper}>
-      <h3>{companyOverview.ceo}</h3>
-      <img
-        src={companyOverview.imgUrl}
-        alt={`Overview of ${companyOverview.companyName}`}
-      />
+      <header>
+        <div className={styles.left}>
+          <h1>{companyOverview.companyName}</h1>
+          <h3>CEO: {companyOverview.ceo} </h3>
+        </div>
+        <div className={styles.right}>
+          <img
+            src={companyOverview.imgUrl}
+            alt={`Overview of ${companyOverview.companyName}`}
+          />
+        </div>
+      </header>
       <p>{companyOverview.description}</p>
     </article>
   )

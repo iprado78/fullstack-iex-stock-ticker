@@ -1,6 +1,6 @@
 import React from "react"
 import Head from "next/head"
-import styles from "@/styles/Home.module.css"
+import styles from "@/styles/Home.module.scss"
 import Header from "@/components/Header"
 import AppContainer from "@/components/AppContainer"
 import Main from "@/components/Main"
@@ -11,7 +11,7 @@ import CompanyOverview from "@/components/CompanyOverview"
 import HistoricalByDay from "@/components/HistoricalByDay"
 import Tabs from "@/components/Tabs"
 
-const appTitle = "US Bank - Stock Analytics"
+const appTitle = "Stock Analytics"
 
 // todo: hide tabs until a ticker search exists
 
@@ -22,11 +22,13 @@ export default function Home() {
         <title>{appTitle}</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Header title={appTitle} />
+      <Header title={appTitle}>
+        <TickerSearch />
+      </Header>
       <Main>
-        <div className={styles.description}>
-          <TickerSearch />
-        </div>
+        {/* <div className={styles.description}>
+          
+        </div> */}
         <div className={styles.contentWrapper}>
           <CompanyOverview />
           <Tabs tabLabels={["Summary", "Historical"]}>
