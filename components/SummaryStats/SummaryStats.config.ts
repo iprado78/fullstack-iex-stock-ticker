@@ -1,7 +1,7 @@
 import { ISummaryStats } from "@/models/SummaryStats"
-import { toUSD, toUsNum } from "@/utils/numbers"
+import { toUSD, toUsNum, toPercent } from "@/utils/numbers"
 
-export type SummaryStatsConfigKey = keyof Omit<ISummaryStats, "companyName">
+export type SummaryStatsConfigKey = keyof ISummaryStats
 
 export const summaryStatsConfig: Record<
   SummaryStatsConfigKey,
@@ -24,7 +24,7 @@ export const summaryStatsConfig: Record<
   },
   day30ChangePercent: {
     label: "Change Percentage (30 days)",
-    formatter: (data) => (data * 100).toFixed(2),
+    formatter: toPercent,
   },
   employees: {
     label: "Employees",

@@ -10,3 +10,7 @@ export const toUSD = (num: number): string => {
 export const toUsNum = (num: number): string => {
   return num.toLocaleString("en-US")
 }
+
+export const toPercent = (num: number): string => {
+  return (num * 100).toFixed(2) + "%"
+}

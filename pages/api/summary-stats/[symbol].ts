@@ -10,7 +10,6 @@ const fetcher = async (symbol: string) => {
     const { data } = await axios.get<ISummaryStats>(
       `${BASE_URL}/stable/stock/${symbol}/stats?token=${TOKEN}`,
     )
-    console.log("Backend ****", data)
     return data
   } catch (error) {
     console.error(error)
@@ -23,7 +22,6 @@ const summaryStats = (req: NextApiRequest, res: NextApiResponse) => {
   fetcher(symbol as string)
     .then(
       ({
-        companyName,
         week52high,
         week52low,
         avg30Volume,
@@ -31,7 +29,6 @@ const summaryStats = (req: NextApiRequest, res: NextApiResponse) => {
         employees,
       }) => {
         res.status(200).json({
-          companyName,
           week52high,
           week52low,
           avg30Volume,
