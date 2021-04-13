@@ -14,18 +14,6 @@ import StatsTable from "../StatsTable"
 import { historicalByDayConfig } from "./HistoricalByDay.config"
 import { IHistoricalByDay } from "@/models/HistoricalByDay"
 
-/**
- *
- * - fix z-index issue
- * - prevent user from selecting a future date
- * - use date they selected to make an api request
- *
- * user searches something. the act of searching creates an observable of their search term.
- * the data displayed should update if the search term or the date updates.
- * 1. when the component mounts, get yesterday's data
- * 2. when the user clicks a button, get the data of the date entered
- */
-
 const [dateSelections$, onDateSelection] = createSignal<string>()
 
 const [useHistoricalByDay] = bind(

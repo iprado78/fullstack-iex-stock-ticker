@@ -5,7 +5,7 @@ export const historicalByDayConfig: Record<
   keyof IHistoricalByDay,
   {
     label: string
-    formatter?: (input: any) => any
+    formatter?: (input: number) => string
   }
 > = {
   open: {
