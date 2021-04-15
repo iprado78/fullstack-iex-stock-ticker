@@ -5,11 +5,11 @@
   Example: 
 
   .header {
-    z-index: index($z-order, header); // 1
+    z-index: index($z-order, header); // 2
   }
 
   .modal {
-    z-index: index($z-order, modal); // 2
+    z-index: index($z-order, modal); // 3
   }
 
 */
