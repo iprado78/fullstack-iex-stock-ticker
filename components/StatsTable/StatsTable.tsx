@@ -23,6 +23,7 @@ function Row({ label, value }: IRow) {
 }
 
 export default function StatsTable({ stats, caption }: IStatsTableProps) {
+  if(!stats.length) return null
   return (
     <div className={styles.wrapper}>
       <table className={styles.table}>

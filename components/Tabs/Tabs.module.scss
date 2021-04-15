@@ -1,3 +1,4 @@
+@import "@/styles/variables.scss";
 .wrapper {
   min-width: 60%;
 }
@@ -13,12 +14,12 @@
   text-transform: uppercase;
   line-height: 2;
   font-size: 1.3rem;
-  color: #0c2074;
+  color: $color-brand;
   background: white;
 }
 
 .isActive {
-  background-color: #0c2074;
+  background-color: $color-brand;
   color: white;
 }
 

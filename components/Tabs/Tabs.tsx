@@ -1,5 +1,6 @@
 import React, { useState } from "react"
 import type { ReactNode } from "react"
+import Image from 'next/image'
 import classNames from "classnames"
 import { map, take } from "rxjs/operators"
 import { bind } from "@react-rxjs/core"
@@ -76,7 +77,15 @@ export default function Tabs({ tabLabels, children }: ITabsProps) {
     return (
       <div>
         <p>Nothing to see here...</p>
-        <img src="https://media.giphy.com/media/BEob5qwFkSJ7G/giphy.gif" />
+        <div>
+          <Image 
+            src="https://media.giphy.com/media/BEob5qwFkSJ7G/giphy.gif"
+            alt="Spongebob looking very sad with teary eyes and a quivering mouth."
+            width="450"
+            height="333"
+          
+          />
+        </div>
       </div>
     )
   }

@@ -1,7 +1,7 @@
-@import "../../styles/variables.scss";
+@import "@/styles/variables.scss";
 
 .wrapper {
-  border-top: 2px solid #d3d3d357;
+  border-top: 2px solid $color-border;
   padding: 16px 0;
   margin: 0 auto 3rem;
 
@@ -19,20 +19,23 @@
     align-items: center;
     justify-content: space-between;
 
-    h3 {
-      margin-top: 0.5rem;
-    }
-
-    h1 {
+    h2 {
       margin: 0;
     }
 
     h3 {
       font-size: 0.75rem;
+      margin-top: 0.5rem;
     }
   }
 
   p {
     text-align: justify;
   }
+}
+
+.imageWrapper {
+  height: 100px;
+  width: 100px;
+  position: relative;
 }

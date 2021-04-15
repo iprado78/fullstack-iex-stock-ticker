@@ -1,6 +1,4 @@
-.visuallyHide {
-  display: none;
-}
+@import "@/styles/common.scss";
 
 .search {
   max-width: 300px;
@@ -9,14 +7,14 @@
   input {
     padding: 16px 8px;
     width: 100%;
-    border: 2px solid #d5d2d2;
+    border: $border-input;
     appearance: none;
     border-style: solid;
     border-radius: 4px;
     font-size: 1.2rem;
 
     &:focus {
-      outline-color: #0c2074;
+      outline-color: $color-brand;
     }
   }
 }
@@ -25,10 +23,11 @@
   list-style-type: none;
   padding: 0;
   margin: 0;
-  border: 2px solid #d5d2d2;
+  border: $border-input;
   border-radius: 4px;
   border-top: none;
   position: absolute;
+  z-index: index($z-order, dropdown);
   width: 100%;
   background-color: white;
   overflow-y: scroll;
@@ -45,7 +44,7 @@
     font-size: 1rem;
 
     &:hover {
-      background-color: #0c2074;
+      background-color: $color-brand;
       color: white;
     }
   }

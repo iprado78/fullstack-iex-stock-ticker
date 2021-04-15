@@ -2,4 +2,15 @@
 $tablet: 768px;
 $laptop: 1024px;
 
-// todo: add color variables
+// colors
+$color-border: #d5d2d2;
+$color-brand: #0c2074;
+
+/*
+  yes this is redundant right now,
+  but maybe the input border or table border would change later
+  doing this more as an example of how variables could be organized
+*/
+// borders
+$border-input: 2px solid $color-border;
+$border-table: 2px solid $color-border;
