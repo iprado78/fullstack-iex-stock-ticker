@@ -1,0 +1,17 @@
+/*
+  Keep track of pesky z-indexes!
+  Index will return the index that the item is in
+
+  Example: 
+
+  .header {
+    z-index: index($z-order, header); // 2
+  }
+
+  .modal {
+    z-index: index($z-order, modal); // 3
+  }
+
+*/
+
+$z-order: content, dropdown, header, modal;

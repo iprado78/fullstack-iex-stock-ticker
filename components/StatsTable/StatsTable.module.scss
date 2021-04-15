@@ -1,10 +1,10 @@
+@import "@/styles/variables.scss";
+
 .wrapper {
   width: 100%;
-  margin: 0 auto;
-  max-width: 500px;
-  border-top: 2px solid #d3d3d357;
+  margin: 0;
 
-  @media (min-width: 768px) {
+  @media (min-width: $tablet) {
     grid-column: 2;
     grid-row: 1;
   }
@@ -20,7 +20,7 @@
   font-size: 1rem;
 
   tr {
-    border-bottom: solid 2px #e6e2e2;
+    border-bottom: $border-table;
   }
 
   th,

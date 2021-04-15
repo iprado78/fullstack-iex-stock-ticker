@@ -1,0 +1,17 @@
+@import "@/styles/variables.scss";
+
+.inputWrapper {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 16px;
+
+  input {
+    padding: 16px 8px;
+    width: 100%;
+    border: $border-input;
+    appearance: none;
+    border-radius: 4px;
+    font-size: 1.2rem;
+    text-align: right;
+  }
+}

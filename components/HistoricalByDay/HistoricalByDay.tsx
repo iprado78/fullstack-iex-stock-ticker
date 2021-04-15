@@ -102,11 +102,13 @@ export default function HistoricalByDay() {
 
   return (
     <div>
-      <DatePicker
-        selected={selectedDate}
-        onChange={(date: Date) => onDateSelection(date as Date)}
-        filterDate={isPastWeekday}
-      />
+      <div className={styles.inputWrapper}>
+        <DatePicker
+          selected={selectedDate}
+          onChange={(date: Date) => onDateSelection(date as Date)}
+          filterDate={isPastWeekday}
+        />
+      </div>
       <div>
         <StatsTable stats={historicalByDay} caption={"Historical by day"} />
       </div>

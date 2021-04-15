@@ -1,13 +1,41 @@
-.wrapper {
-  max-width: 500px;
-  margin: auto;
-  border-top: 2px solid #d3d3d357;
-  padding: 16px 0;
-  grid-area: sidebar;
+@import "@/styles/variables.scss";
 
-  @media (min-width: 768px) {
+.wrapper {
+  border-top: 2px solid $color-border;
+  padding: 16px 0;
+  margin: 0 auto 3rem;
+
+  @media (min-width: $laptop) {
+    margin: 0;
     padding: 0;
     border: none;
-    text-align: right;
+    text-align: left;
+    order: 1;
+    max-width: 25%;
   }
+
+  header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    h2 {
+      margin: 0;
+    }
+
+    h3 {
+      font-size: 0.75rem;
+      margin-top: 0.5rem;
+    }
+  }
+
+  p {
+    text-align: justify;
+  }
+}
+
+.imageWrapper {
+  height: 100px;
+  width: 100px;
+  position: relative;
 }

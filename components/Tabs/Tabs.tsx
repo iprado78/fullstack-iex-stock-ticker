@@ -1,5 +1,6 @@
 import React, { useState } from "react"
 import type { ReactNode } from "react"
+import Image from 'next/image'
 import classNames from "classnames"
 import { map, take } from "rxjs/operators"
 import { bind } from "@react-rxjs/core"
@@ -73,7 +74,20 @@ export default function Tabs({ tabLabels, children }: ITabsProps) {
   const hasTickerSelection = useHasTickerSelection()
 
   if (!hasTickerSelection) {
-    return <div>Nothing to see here</div>
+    return (
+      <div>
+        <p>Nothing to see here...</p>
+        <div>
+          <Image 
+            src="https://media.giphy.com/media/BEob5qwFkSJ7G/giphy.gif"
+            alt="Spongebob looking very sad with teary eyes and a quivering mouth."
+            width="450"
+            height="333"
+          
+          />
+        </div>
+      </div>
+    )
   }
 
   return (
@@ -93,16 +107,17 @@ export default function Tabs({ tabLabels, children }: ITabsProps) {
           />
         ))}
       </div>
-
-      {children.map((child, index) => (
-        <TabPanel
-          id={`${tabLabels[index]}-${index}`}
-          isOpen={openTab === tabLabels[index]}
-          key={tabLabels[index]}
-        >
-          {child}
-        </TabPanel>
-      ))}
+      <div className={styles.tabContentWrapper}>
+        {children.map((child, index) => (
+          <TabPanel
+            id={`${tabLabels[index]}-${index}`}
+            isOpen={openTab === tabLabels[index]}
+            key={tabLabels[index]}
+          >
+            {child}
+          </TabPanel>
+        ))}
+      </div>
     </div>
   )
 }

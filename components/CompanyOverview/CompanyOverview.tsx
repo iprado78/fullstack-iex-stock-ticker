@@ -1,4 +1,5 @@
 import React from "react"
+import Image from 'next/image'
 import { of } from "rxjs"
 import { ajax } from "rxjs/ajax"
 import { catchError, switchMap } from "rxjs/operators"
@@ -28,11 +29,20 @@ export default function CompanyOverview() {
 
   return (
     <article className={styles.wrapper}>
-      <h3>{companyOverview.ceo}</h3>
-      <img
-        src={companyOverview.imgUrl}
-        alt={`Overview of ${companyOverview.companyName}`}
-      />
+      <header>
+        <div className={styles.left}>
+          <h2>{companyOverview.companyName}</h2>
+          <h3>CEO: {companyOverview.ceo} </h3>
+        </div>
+        <div className={styles.imageWrapper}>
+          <Image
+            src={companyOverview.imgUrl}
+            alt={`Overview of ${companyOverview.companyName}`}
+            height="100"
+            width="100"
+          />
+        </div>
+      </header>
       <p>{companyOverview.description}</p>
     </article>
   )

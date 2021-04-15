@@ -1,7 +1,5 @@
 import React from "react"
 import styles from "./StatsTable.module.scss"
-
-// where should this be exported from?
 interface IRow {
   label: string
   value: any
@@ -23,6 +21,7 @@ function Row({ label, value }: IRow) {
 }
 
 export default function StatsTable({ stats, caption }: IStatsTableProps) {
+  if (!stats.length) return null
   return (
     <div className={styles.wrapper}>
       <table className={styles.table}>

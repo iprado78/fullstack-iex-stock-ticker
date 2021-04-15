@@ -99,7 +99,7 @@ export default function TickerSearch() {
       }}
     >
       <div>
-        <label className={styles.visuallyHide} htmlFor="ticker-select">
+        <label className="visually-hidden" htmlFor="ticker-select">
           Ticker Select
         </label>
         <input

@@ -1,5 +1,6 @@
+@import "@/styles/variables.scss";
 .wrapper {
-  grid-area: tabs;
+  min-width: 60%;
 }
 
 .buttonWrapper {
@@ -13,11 +14,15 @@
   text-transform: uppercase;
   line-height: 2;
   font-size: 1.3rem;
-  color: #0c2074;
+  color: $color-brand;
   background: white;
 }
 
 .isActive {
-  background-color: #0c2074;
+  background-color: $color-brand;
   color: white;
+}
+
+.tabContentWrapper {
+  padding: 2rem 0;
 }
